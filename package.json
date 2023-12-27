@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/kaustubhkushte/whatsapp-automation-bot#readme",
   "dependencies": {
+    "dotenv": "^16.3.1",
     "mongoose": "^8.0.3",
     "qrcode-terminal": "^0.12.0",
     "whatsapp-web.js": "^1.23.0"

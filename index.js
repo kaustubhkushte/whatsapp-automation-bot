@@ -1,6 +1,9 @@
 const { Client,LocalAuth } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+
+dotenv.config(); // Load environment variables from .env file
 
 // Replace with your MongoDB connection string
 const MONGODB_URI = 'mongodb://localhost:27017';
@@ -40,13 +43,24 @@ async function main() {
   client.on('message', async (message) => {
     // Replace 'TARGET_NUMBER' with the number you want to forward messages to
     let contact = await message.getContact();
-    console.log(contact);
-    const sourceNumber = '918433721719@c.us';
-    const destinationNumber = '919945956200@c.us';
-
+    
+    const sourceNumber = process.env.SOURCE_NUMBER;
+    const destinationNumber = process.env.DESTINATION_NUMBER;
+    const destinationChat = await client.getChatById(destinationNumber);
     if (message.from === sourceNumber) {
-      const chat = await client.getChatById(destinationNumber);     
-      chat.sendMessage(`New Message from ${message.from}: ${message.body}`);
+      console.log(`Forwarding Message from ${message.from}`);      
+      
+      if(message.hasMedia) {
+        const media = await message.downloadMedia();
+        console.log(`Downloading media`);
+        destinationChat.sendMessage(media);  
+        destinationChat.sendMessage(`${message.body}`);
+      }else {
+        destinationChat.sendMessage(`${message.body}`);
+      }
+      
+           
+      
     }
   });
 }
