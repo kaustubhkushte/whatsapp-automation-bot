@@ -4,6 +4,8 @@
   "description": "WhatsApp Automation: Node.js script forwarding messages with Dockerized deployment using MongoDB for easy developer setup.",
   "main": "index.js",
   "scripts": {
+    "start": "npm start",
+    "start:dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,5 +18,13 @@
   "bugs": {
     "url": "https://github.com/kaustubhkushte/whatsapp-automation-bot/issues"
   },
-  "homepage": "https://github.com/kaustubhkushte/whatsapp-automation-bot#readme"
+  "homepage": "https://github.com/kaustubhkushte/whatsapp-automation-bot#readme",
+  "dependencies": {
+    "mongoose": "^8.0.3",
+    "qrcode-terminal": "^0.12.0",
+    "whatsapp-web.js": "^1.23.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
 }
